@@ -34,7 +34,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //[self downloadRoutes];
-    [self downloadRoutesWithURL:@"http://myspeedshow.com/user_maps.xml" saveToFile:@"userMaps.xml" doXMLParing:YES];
+    arrMap_desc = [[NSMutableArray alloc] init];
+    arrMap_id = [[NSMutableArray alloc] init];
+    
+    [self downloadRoutesWithURL:@"http://myspeedshow.com/user_maps.xml" saveToFile:@"userMaps.xml" doXMLParsing:YES refreshTableview:YES];
     // Do any additional setup after loading the view from its nib.
     
     mapRoutes = [[NSMutableArray alloc] init];
@@ -61,9 +64,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *map_id_str = [arrMap_id objectAtIndex:[indexPath row]];
     NSString *map_id_fn = [NSString stringWithFormat:@"%@.gpx",map_id_str];
-    [self downloadRoutesWithURL:[NSString stringWithFormat:@"http://myspeedshow.com/gpx/gpxGenerate.php?map_id=%@",map_id_str] saveToFile:@"dummy" doXMLParing:NO];
-    [self downloadRoutesWithURL:[NSString stringWithFormat:@"http://myspeedshow.com/gpx/routes/%@.gpx",map_id_str] saveToFile:map_id_fn doXMLParing:NO];
-    NSLog(@"download gpx file http://myspeedshow.com/gpx/routes/%@.gpx",map_id_str);
+    [self downloadRoutesWithURL:[NSString stringWithFormat:@"http://myspeedshow.com/gpx/gpxGenerate.php?map_id=%@",map_id_str] saveToFile:@"dummy" doXMLParsing:NO refreshTableview:NO];
+    NSLog(@"didSelected download gpx");
+    [self downloadRoutesWithURL:[NSString stringWithFormat:@"http://myspeedshow.com/gpx/routes/%@.gpx",map_id_str] saveToFile:map_id_fn doXMLParsing:YES refreshTableview:NO];
     
 }
 - (void)didReceiveMemoryWarning {
@@ -71,11 +74,11 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)parseXMLFile:(NSString *)pathToFile{
+-(void)parseXMLFile:(NSString *)pathToFile andRefresh:(BOOL)refresh{
     BOOL success;
     NSXMLParser *routeParser;
-    arrMap_desc = [[NSMutableArray alloc] init];
-    arrMap_id = [[NSMutableArray alloc] init];
+    //arrMap_desc = [[NSMutableArray alloc] init];
+    //arrMap_id = [[NSMutableArray alloc] init];
     
     
     NSURL *xmlURL = [NSURL fileURLWithPath:pathToFile];
@@ -89,8 +92,14 @@
     [routeParser setDelegate:self];
     [routeParser setShouldResolveExternalEntities:YES];
     success = [routeParser parse];
-    NSLog(@"parseXMLFile finished number and arrMap_id=%ld",(long)[arrMap_id count]);
-    [self.tblViewRoutes reloadData];
+    NSLog(@"parseXMLFile success parse = %d",success);
+    
+    if (success) {
+        NSLog(@"parseXMLFile finished number ok");
+    }
+    if (refresh) {
+       [self.tblViewRoutes reloadData];
+    }
 }
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
@@ -125,7 +134,7 @@
 }
 
 //-(void)downloadRoutes{
--(void)downloadRoutesWithURL:(NSString *)remoteUrl saveToFile:(NSString *)fn doXMLParing:(BOOL)doParsing {
+-(void)downloadRoutesWithURL:(NSString *)remoteUrl saveToFile:(NSString *)fn doXMLParsing:(BOOL)doParsing refreshTableview:(BOOL)refresh{
     
     //NSURL *url = [NSURL URLWithString:@"http://myspeedshow.com/user_maps.xml"];
     NSURL *url = [NSURL URLWithString:remoteUrl];
@@ -141,24 +150,26 @@
             if(rspData == nil || (err != nil && [err code] != noErr)){
                 NSLog(@"NO xml file download");
             }else{
-                //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+                
                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                //NSString *path = [[paths objectAtIndex:0] stringByAppendingString:@"/userMaps.xml"];
                 
                 NSString *path = [[paths objectAtIndex:0] stringByAppendingString:[NSString stringWithFormat:@"/%@",fn]];
                 [rspData writeToFile:path atomically:YES];
                 self.downloadedXMLPath = path;
                 //&&&&&&&&parse through the xml file
-                NSLog(@"&&&&&&&&&&&&&&&&&xml has been saved to %@",path);
-                
+                NSLog(@"downloadRoutesWithURL safe file to %@",path);
                 if (doParsing) {
-                   [self parseXMLFile:path];
+                   [self parseXMLFile:path andRefresh:refresh];
                    //&&&&&&&&parse through the xml file
                 }
             };
         });
     });
     
+}
+
+-(BOOL)prefersStatusBarHidden{
+    return YES;
 }
 
 /*

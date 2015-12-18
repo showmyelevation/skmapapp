@@ -10,40 +10,43 @@
 	<string>FrameworkIOSDemo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>AF622C8D-855F-448D-BCD7-4AAAA9B20A9D</key>
-		<string>svn://10.0.0.1/SKMapsFramework/trunk/SKMapsFrameworkDemo</string>
+		<key>6B5CE0338B681D18412389EA25BE4CF051D15BAA</key>
+		<string>https://github.com/showmyelevation/skmapapp</string>
+		<key>6D1698E39631F1B5FD51022F593320F317EF6E72</key>
+		<string>myspeedshow.net:/home/john/TakePhoto.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>FrameworkIOSDemo.xcodeproj/project.xcworkspace</string>
+	<string>SKMaps_iOS_2.5.1_withDemo/SKMapsFrameworkDemo/FrameworkIOSDemo.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>AF622C8D-855F-448D-BCD7-4AAAA9B20A9D</key>
-		<string>../..</string>
-	</dict>
-	<key>IDESourceControlProjectRepositoryRootDictionary</key>
-	<dict>
-		<key>AF622C8D-855F-448D-BCD7-4AAAA9B20A9D</key>
-		<string>svn://10.0.0.1/SKMapsFramework</string>
+		<key>6B5CE0338B681D18412389EA25BE4CF051D15BAA</key>
+		<string>../../../..</string>
+		<key>6D1698E39631F1B5FD51022F593320F317EF6E72</key>
+		<string>../../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>svn://10.0.0.1/SKMapsFramework/trunk/SKMapsFrameworkDemo/FrameworkIOSDemo.xcodeproj</string>
+	<string>https://github.com/showmyelevation/skmapapp</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>AF622C8D-855F-448D-BCD7-4AAAA9B20A9D</string>
+	<string>6B5CE0338B681D18412389EA25BE4CF051D15BAA</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
-			<key>IDESourceControlRepositoryBranchesRelativeLocationKey</key>
-			<string>branches</string>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
-			<key>IDESourceControlRepositoryTrunkRelativeLocationKey</key>
-			<string>trunk</string>
+			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>AF622C8D-855F-448D-BCD7-4AAAA9B20A9D</string>
+			<string>6D1698E39631F1B5FD51022F593320F317EF6E72</string>
 			<key>IDESourceControlWCCName</key>
-			<string>SKMapsFrameworkDemo</string>
+			<string>..</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6B5CE0338B681D18412389EA25BE4CF051D15BAA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>skmapapp</string>
 		</dict>
 	</array>
 </dict>
