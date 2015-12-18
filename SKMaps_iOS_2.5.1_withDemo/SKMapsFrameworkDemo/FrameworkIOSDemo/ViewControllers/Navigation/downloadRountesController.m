@@ -19,6 +19,7 @@
 
 @property (nonatomic, retain)NSMutableArray *arrMap_id;
 @property (nonatomic, retain)NSMutableArray *arrMap_desc;
+@property (nonatomic, retain)NSMutableArray *arrfullPath;
 @property NSString *downloadedXMLPath;
 @property NSString *currentElementValue;
 
@@ -29,11 +30,12 @@
 
 @synthesize arrMap_id;
 @synthesize arrMap_desc;
+@synthesize arrfullPath;
 @synthesize currentElementValue;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[self downloadRoutes];
+    
     arrMap_desc = [[NSMutableArray alloc] init];
     arrMap_id = [[NSMutableArray alloc] init];
     
@@ -168,8 +170,47 @@
     
 }
 
--(BOOL)prefersStatusBarHidden{
-    return YES;
+-(BOOL)clearDB{
+    NSError *error;
+    AppDelegate *sharedDelegate = [AppDelegate appDelegate];
+    NSManagedObjectContext *context = [sharedDelegate managedObjectContext];
+    NSFetchRequest *fetchRequests = [[NSFetchRequest alloc] init];
+    fetchRequests.entity = [NSEntityDescription entityForName:@"GpxFiles" inManagedObjectContext:context];
+    
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequests error:&error];
+    for (NSManagedObject *gpxFs in fetchedObjects) {
+        [context deleteObject:gpxFs];
+    }
+    
+    if (![context save:&error]) {
+        return false;
+    }else {
+        return true;
+    }
+}
+
+////////////////////////Coredata////////////
+-(BOOL)insertDBWithMapId:(NSString *)mapid fullPath:(NSString *)fulpath routeName:(NSString *)routenam {
+    NSError *error;
+
+    AppDelegate *sharedDelegate = [AppDelegate appDelegate];
+
+    NSManagedObjectContext *context = [sharedDelegate managedObjectContext];
+    
+    NSManagedObject *gpxFilesEntity = [NSEntityDescription insertNewObjectForEntityForName:@"GpxFiles" inManagedObjectContext:context];
+
+    [gpxFilesEntity setValue:fulpath forKey:@"fullpath"];
+    [gpxFilesEntity setValue:routenam forKey:@"routename"];
+    [gpxFilesEntity setValue:mapid forKey:@"map_id"];
+    
+    if(![context save:&error]) {
+        NSLog(@"failed save : %@",[error localizedDescription]);
+        return false;
+    }else{
+        NSLog(@"saved successfully");
+        return true;
+    }
+    
 }
 
 /*

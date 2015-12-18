@@ -570,11 +570,11 @@
 		09619B5A16676B66005E79D0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				52A8939C1BFEB31600065691 /* Icon-60@3x.png */,
 				52A893981BFEB31500065691 /* Icon-40.png */,
 				52A893991BFEB31500065691 /* Icon-40@2x.png */,
 				52A8939A1BFEB31500065691 /* Icon-60.png */,
 				52A8939B1BFEB31600065691 /* Icon-60@2x.png */,
-				52A8939C1BFEB31600065691 /* Icon-60@3x.png */,
 				52C6C86F1BFD76E4004588DE /* addressMapping.xcdatamodeld */,
 				033B9A7C1B09DE1E00D73F23 /* SKAdvisorResources.bundle */,
 				09AEBC4C1A97670700B650C4 /* SKMaps.bundle */,
@@ -773,8 +773,8 @@
 				C62A482618ABAD7D0052F96C /* Map */,
 				C62A483818ABAD7D0052F96C /* Navigation */,
 				C62A484918ABAD7D0052F96C /* Search */,
-				FBB692D51712E57600DF4E32 /* RootViewController.h */,
 				FBB692D61712E57600DF4E32 /* RootViewController.m */,
+				FBB692D51712E57600DF4E32 /* RootViewController.h */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

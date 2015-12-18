@@ -1,4 +1,4 @@
 Documentation set was installed to Xcode!
 
 Path: /Users/john/Library/Developer/Shared/Documentation/DocSets/Skobbler.SDKTools.docset
-Time: 2015-12-18 04:02:29 +0000
+Time: 2015-12-18 05:09:59 +0000
